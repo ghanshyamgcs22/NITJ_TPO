@@ -161,9 +161,11 @@
   <div>{{>footer}}</div>
 </body>
 <script>
+  // Automatically trigger click on element with id "insight"
   document.getElementById("insight").click();
   const content = document.getElementById("content");
 
+  // Function to handle the process click event
   function processClick() {
     let pro_link = {{URL}}/Processes/Placement Process;
     fetch(pro_link)
@@ -176,11 +178,10 @@
 
     addStylingToContent();
 
-    document
-      .getElementById("come_here")
-      .scrollIntoView({ behavior: "smooth" });
+    document.getElementById("come_here").scrollIntoView({ behavior: "smooth" });
   }
 
+  // Function to handle policy click event
   function policyClick() {
     const p_link = {{URL}}/Policies/Placement Policy;
     fetch(p_link)
@@ -193,9 +194,7 @@
 
     addStylingToContent();
 
-    document
-      .getElementById("come_here")
-      .scrollIntoView({ behavior: "smooth" });
+    document.getElementById("come_here").scrollIntoView({ behavior: "smooth" });
   }
 {{!-- function insightClick(){
   window.location.href = '/coursers';
@@ -248,6 +247,22 @@
     
     
 
+    fetch(link1)
+      .then((response) => response.json())
+      .then((data) => {
+        innerHTML += `<div class="w-1/4 h-screen p-4 overflow-y-auto flex justify-end"><div class="mx-auto">`;
+        data.forEach((student, index) => {
+          innerHTML += `
+          <p style="border: 2px solid rgb(55, 141, 246); border-bottom: none; padding:5px; padding-left: 20px; padding-right: 20px;">
+            ${student.name} (${student.department}), ${student.company}, ${student.course}
+          </p>`;
+        });
+        innerHTML += `</div></div></div>`;
+        content1.innerHTML = innerHTML;
+      });
+  }
+
+  // Function to handle stats click event
   function statsClick() {
     const link = {{URL}}/Placement_Stats/;
     fetch(link)
@@ -257,116 +272,72 @@
         let str1 = <div class="grid grid-cols-1 m-[5%] lg:grid-cols-2 gap-14 max-w-7xl lg:mx-auto">;
         let str2 = "";
 
-        let cnt = 0;
-
-        for (let i = 0; i < data.length; i++) {
-          var image = data[i];
-
+        data.slice(0, 10).forEach(image => {
           str2 += `
             <div class="w-full max-w-lg bg-white border border-gray-200 rounded-lg shadow shadow-sky-500 px-3 py-5">
-                <img src="${image.link}">
-            </div>
-            `;
-          cnt++;
-
-          if (cnt == 10) break;
-        }
+              <img src="${image.link}" alt="Image">
+            </div>`;
+        });
 
         let str3 = </div>;
         content.innerHTML = str1 + str2 + str3;
       });
-
-
   }
 
+  // Function to add styling to content dynamically
   function addStylingToContent() {
-    // Add bullots
-    setInterval(() => {
-      const ulists = document.getElementById("content").getElementsByTagName('ul');
-      const olists = document.getElementById("content").getElementsByTagName('ol');
-      const lists = document.getElementById("content").getElementsByTagName('li');
-      const headings = document.getElementById("content").getElementsByTagName('h2');
-      const para = document.getElementById("content").getElementsByTagName('p');
+    setTimeout(() => {
+      const ulists = document.querySelectorAll("#content ul");
+      const olists = document.querySelectorAll("#content ol");
+      const lists = document.querySelectorAll("#content li");
+      const headings = document.querySelectorAll("#content h2");
+      const paras = document.querySelectorAll("#content p");
 
-      for (let i = 0; i < headings.length; i++) {
-        headings[i].classList.add("font2");
-        headings[i].classList.add("font-medium");
-        headings[i].classList.add("text-[28px]");
-        headings[i].classList.add("lg:text-[32px]");
-        headings[i].classList.add("mx-5");
-        headings[i].classList.add("my-2");
-        headings[i].classList.add("lg:mx-10");
-        headings[i].classList.add("lg:my-5");
-      }
-      for (let i = 0; i < ulists.length; i++) {
-        ulists[i].classList.add("list-disc");
-        ulists[i].classList.add("font-body");
-        ulists[i].classList.add("mx-5");
-        ulists[i].classList.add("my-2");
-        ulists[i].classList.add("lg:mx-10");
-        ulists[i].classList.add("lg:my-5");
-        ulists[i].style.listStylePosition = "inside";
-      }
-      for (let i = 0; i < olists.length; i++) {
-        olists[i].classList.add("list-decimal");
-        olists[i].classList.add("font-body");
-        olists[i].classList.add("mx-5");
-        olists[i].classList.add("my-2");
-        olists[i].classList.add("lg:mx-10");
-        olists[i].classList.add("lg:my-5");
-        olists[i].style.listStylePosition = "inside";
-      }
-      for (let i = 0; i < lists.length; i++) {
-        lists[i].classList.add("p-0.5");
-        lists[i].classList.add("my-2");
-        lists[i].classList.add("text-md");
-        lists[i].classList.add("text-gray-800");
-        lists[i].classList.add("lg:text-[18px]");
-        lists[i].classList.add("lg:leading-[30px]");
-        lists[i].classList.add("text-justify");
-      }
-      for (let i = 0; i < lists.length; i++) {
-        para[i].classList.add("font-body");
-        para[i].classList.add("mx-5");
-        para[i].classList.add("my-2");
-        para[i].classList.add("lg:mx-10");
-        para[i].classList.add("lg:my-5");
-        para[i].classList.add("p-0.5");
-        para[i].classList.add("text-md");
-        para[i].classList.add("text-gray-800");
-        para[i].classList.add("lg:text-[18px]");
-        para[i].classList.add("lg:leading-[30px]");
-        para[i].classList.add("text-justify");
-      }
-    });
+      headings.forEach(heading => {
+        heading.classList.add("font2", "font-medium", "text-[28px]", "lg:text-[32px]", "mx-5", "my-2", "lg:mx-10", "lg:my-5");
+      });
+
+      ulists.forEach(ul => {
+        ul.classList.add("list-disc", "font-body", "mx-5", "my-2", "lg:mx-10", "lg:my-5");
+        ul.style.listStylePosition = "inside";
+      });
+
+      olists.forEach(ol => {
+        ol.classList.add("list-decimal", "font-body", "mx-5", "my-2", "lg:mx-10", "lg:my-5");
+        ol.style.listStylePosition = "inside";
+      });
+
+      lists.forEach(li => {
+        li.classList.add("p-0.5", "my-2", "text-md", "text-gray-800", "lg:text-[18px]", "lg:leading-[30px]", "text-justify");
+      });
+
+      paras.forEach(para => {
+        para.classList.add("font-body", "mx-5", "my-2", "lg:mx-10", "lg:my-5", "p-0.5", "text-md", "text-gray-800", "lg:text-[18px]", "lg:leading-[30px]", "text-justify");
+      });
+    }, 0);
   }
 
-  // Get the button
+  // Scroll-to-top button functionality
   let mybutton = document.getElementById("btn-back-to-top");
 
-  // When the user scrolls down 20px from the top of the document, show the button
   window.onscroll = function () {
     scrollFunction();
   };
 
   function scrollFunction() {
-    if (
-      document.body.scrollTop > 20 ||
-      document.documentElement.scrollTop > 20
-    ) {
+    if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
       mybutton.style.display = "block";
     } else {
       mybutton.style.display = "none";
     }
   }
-  // When the user clicks on the button, scroll to the top of the document
-  mybutton.addEventListener("click", backToTop);
 
-  function backToTop() {
+  // Scroll to top on button click
+  mybutton.addEventListener("click", function() {
     document.body.scrollTop = 0;
     document.documentElement.scrollTop = 0;
-  }
-
+  });
 </script>
+
 
 </html>

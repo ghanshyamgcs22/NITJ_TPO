@@ -1,4 +1,4 @@
-<html lang="en">
+<html lang="en"></html>
 
 <head>
   <meta charset="UTF-8">
@@ -180,7 +180,7 @@ function nextSlide() {
 
 function updateSlider() {
     const translateX = -currentIndex * (100 + 10); // Adjust the width and margin of the slides
-    sliderContent.style.transform = `translateX(${translateX}px)`;
+    sliderContent.style.transform = translateX(`${translateX}px`);
 }
 
 setInterval(nextSlide, 3000); // Change slide every 3 seconds (adjust as needed)
@@ -189,10 +189,10 @@ setInterval(nextSlide, 3000); // Change slide every 3 seconds (adjust as needed)
   const link1 = "{{URL}}/Announcements/"
 
   // for message
-  const link3 = `{{URL}}/NitjMessage/`
+  const link3 = "{{URL}}/NitjMessage/"
 
   // for post Recruitment
-  const link4 = `{{URL}}/Placement_Insights_Img/`
+  const link4 = "{{URL}}/Placement_Insights_Img/"
 
   fetch(link1)
     .then(response => response.json())
@@ -344,20 +344,18 @@ message.innerHTML = `
 
     });
 
-fetch(link4)
+ fetch(link4)
     .then(response => response.json())
     .then(data => {
-      console.log(data)
+      console.log(data);
 
       let postRD = document.getElementById("prDetails");
-   
 
-      for (let i =0; i<data.length; i++) {
-        if(data[i].category == "company_logo") {
-        const postRDTemplate = `<img src=${data[i].link} alt=${data[i].category} class="mx-auto">`
-        postRD.innerHTML += postRDTemplate;
+      for (let i = 0; i < data.length; i++) {
+        if (data[i].category == "company_logo") {
+          const postRDTemplate = `<img src="${data[i].link}" alt="${data[i].category}" class="mx-auto"/>`;
+          postRD.innerHTML += postRDTemplate;
         }
-        
       }
     });
   // Get the button
