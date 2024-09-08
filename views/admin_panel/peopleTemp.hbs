@@ -259,39 +259,38 @@
         <div class="col-lg-12">
           <div class="panel panel-default">
             <div class="panel-heading">
-              <h3>Add Internship Insight</h3>
+              <h3>Add Person</h3>
             </div>
             <div class="panel-body">
               <div class="row">
                 <div class="col-lg-6">
                   <form role="form" id="addForm">
-
                     <div class="form-group">
-                      <label>Name</label>
-                      <input class="form-control" placeholder="Enter Name" id="addname" name="Intern_name" />
+                      <label>Select the Type</label>
+                      <select id="addcategory" name="menu" class="form-control">
+                        <option value="">
+                          Select type of the person.
+                        </option>
+                        <option value="Director">Director</option>
+                        <option value="Head">Head</option>
+                        <option value="Faculty">Faculty</option>
+                        <option value="Student">Student</option>
+                      </select>
                     </div>
 
                     <div class="form-group">
-                      <label>Course</label>
-                      <select id="addcourse" name="menu" class="form-control">
-                        <option value="">
-                          Select Course of Intern.
-                        </option>
-                        <option value="Bachelor of Technology (B.Tech)">Bachelor of Technology (B.Tech)</option>
-                        <option value="Master of Technology (M.Tech)">Master of Technology (M.Tech)</option>
-                        <option value="Master of Business Administration (MBA)">Master of Business Administration (MBA)
-                        </option>
-                        <option value="Master of Science (M.Sc)">Master of Science (M.Sc)</option>
-                      </select>
+                      <label>Name</label>
+                      <input class="form-control" placeholder="Enter Name of Person" id="addname" name="Person_name" />
                     </div>
 
                     <div class="form-group">
                       <label>Department</label>
                       <select id="adddepartment" name="menu" class="form-control">
                         <option value="">
-                          Select Department of Intern.
+                          Select Department of Person.
                         </option>
                         <option value="Biotechnology">Biotechnology</option>
+                        <option value="Training and Placement Centre">Training and Placement Centre</option>
                         <option value="Chemical Engineering">Chemical Engineering</option>
                         <option value="Civil Engineering">Civil Engineering</option>
                         <option value="Computer Science and Engineering">Computer Science and Engineering</option>
@@ -309,27 +308,42 @@
                         <option value="Chemistry">Chemistry</option>
                         <option value="Mathematics">Mathematics</option>
                         <option value="Humanities & Management">Humanities & Management</option>
+                        <option value="NITJ Director">NITJ Director</option>
                       </select>
                     </div>
 
                     <div class="form-group">
-                      <label>Stipend</label>
-                      <input class="form-control" placeholder="Enter Stipend (in K)" id="addstipend" name="Stipend" />
+                      <label>Designation</label>
+                      <select id="adddesignation" name="Designation" class="form-control">
+                        <option value="">
+                          Select type of the person.
+                        </option>
+                        <option value="Director">Director</option>
+                        <option value="Head (Training & Placement)">Head (Training & Placement)</option>
+                        <option value="Professor Incharge">Professor Incharge</option>
+                        <option value="Assistant Training & Placement Officer">Assistant Training & Placement Officer</option>
+                        <option value="Training & Placement Officer">Training & Placement Officer</option>
+                        <option value="Training Officer">Training Officer</option>
+                        <option value="Placement Representative">Placement Representative</option>
+                        <option value="Internship Representative">Internship Representative</option>
+                      </select>
+                    </div>
+                    <div class="form-group">
+                      <label>Mobile No.</label>
+                      <input class="form-control" placeholder="Enter Mobile No. of Person" id="addmobileno"
+                        name="Person_mobileno" />
                     </div>
 
                     <div class="form-group">
-                      <label>Year</label>
-                      <input class="form-control" placeholder="Enter Year" id="addyear" name="Year" />
+                      <label>Email</label>
+                      <input class="form-control" placeholder="Enter Email of Person" id="addemail"
+                        name="Person_email" />
                     </div>
 
-
                     <div class="form-group">
-                      <label>Company</label>
-                      <input class="form-control" placeholder="Enter Company" id="addcompany" name="company" />
-                    </div>
-                    <div class="form-group">
-                      <label>Image</label>
-                      <input class="form-control" placeholder="Enter Student Image Link" id="addImage" name="image" />
+                      <label>Image Link</label>
+                      <input class="form-control" placeholder="Enter Link of Image" id="addlink"
+                        name="Person_image" />
                     </div>
 
                     <button type="submit" name="action" value="add_menu" class="btn btn-default">
@@ -351,7 +365,7 @@
         <div class="col-lg-12" id="come_here">
           <div class="panel panel-default">
             <div class="panel-heading">
-              <h3>Edit Internship Insight</h3>
+              <h3>Edit Notice</h3>
             </div>
             <div class="panel-body">
               <div class="row">
@@ -361,33 +375,30 @@
                       <label>id</label>
                       <input class="form-control" placeholder="Enter id" id="editid" name="id" />
                     </div>
-
                     <div class="form-group">
-                      <label>Name</label>
-                      <input class="form-control" placeholder="Enter Name" id="editname" name="Intern_name" />
+                      <label>Select the Type</label>
+                      <select id="editcategory" name="menu" class="form-control">
+                        <option value="">
+                          Select type of the person.
+                        </option>
+                        <option value="Faculty">Faculty</option>
+                        <option value="Student">Student</option>
+                      </select>
                     </div>
 
                     <div class="form-group">
-                      <label>Course</label>
-                      <select id="editcourse" name="menu" class="form-control">
-                        <option value="">
-                          Select Course of Intern.
-                        </option>
-                        <option value="Bachelor of Technology (B.Tech)">Bachelor of Technology (B.Tech)</option>
-                        <option value="Master of Technology (M.Tech)">Master of Technology (M.Tech)</option>
-                        <option value="Master of Business Administration (MBA)">Master of Business Administration (MBA)
-                        </option>
-                        <option value="Master of Science (M.Sc)">Master of Science (M.Sc)</option>
-                      </select>
+                      <label>Name</label>
+                      <input class="form-control" placeholder="Enter Name of Person" id="editname" name="Person_name" />
                     </div>
 
                     <div class="form-group">
                       <label>Department</label>
                       <select id="editdepartment" name="menu" class="form-control">
                         <option value="">
-                          Select Department of Intern.
+                          Select Department of Person.
                         </option>
                         <option value="Biotechnology">Biotechnology</option>
+                        <option value="Training and Placement Centre">Training and Placement Centre</option>
                         <option value="Chemical Engineering">Chemical Engineering</option>
                         <option value="Civil Engineering">Civil Engineering</option>
                         <option value="Computer Science and Engineering">Computer Science and Engineering</option>
@@ -409,18 +420,37 @@
                     </div>
 
                     <div class="form-group">
-                      <label>Stipend</label>
-                      <input class="form-control" placeholder="Enter Stipend (in K)" id="editstipend" name="Stipend" />
+                      <label>Designation</label>
+                      <select id="editdesignation" name="Designation" class="form-control">
+                        <option value="">
+                          Select type of the person.
+                        </option>
+                        <option value="Head">Head</option>
+                        <option value="Assistant Training Officer">Assistant Training Officer</option>
+                        <option value="Assistant Placement Officer">Assistant Placement Officer</option>
+                        <option value="Training & Placement Officer">Training & Placement Officer</option>
+                        <option value="Training Officer">Training Officer</option>
+                        <option value="Placement Representative">Placement Representative</option>
+                        <option value="Internship Representative">Internship Representative</option>
+                        <option value="Other">Other</option>
+                      </select>
+                    </div>
+                    <div class="form-group">
+                      <label>Mobile No.</label>
+                      <input class="form-control" placeholder="Enter Mobile No. of Person" id="editmobileno"
+                        name="Person_mobileno" />
                     </div>
 
                     <div class="form-group">
-                      <label>Year</label>
-                      <input class="form-control" placeholder="Enter Year" id="edityear" name="Year" />
+                      <label>Email</label>
+                      <input class="form-control" placeholder="Enter Email of Person" id="editemail"
+                        name="Person_email" />
                     </div>
 
                     <div class="form-group">
-                      <label>Company</label>
-                      <input class="form-control" placeholder="Enter Company" id="editcompany" name="company" />
+                      <label>Image Link</label>
+                      <input class="form-control" placeholder="Enter Link of Image" id="editlink"
+                        name="Person_image" />
                     </div>
 
                     <button type="submit" class="btn btn-default">
@@ -445,12 +475,13 @@
             <thead>
               <tr>
                 <th>ID</th>
+                <th>Category</th>
                 <th>Name</th>
-                <th>Course</th>
                 <th>Department</th>
-                <th>Stipend</th>
-                <th>Year</th>
-                <th>Company</th>
+                <th>Designation</th>
+                <th>Mobile No.</th>
+                <th>Email</th>
+                <th>Link</th>
                 <th>Date</th>
                 <th>UpdateDate</th>
                 <th>options</th>
@@ -493,19 +524,21 @@
     let apiData;
 
     function EditData(e) {
-      const internId = e.getAttribute("intern-id");
+      const personId = e.getAttribute("person-id");
 
       //finding data from apiData using id
-      const data = apiData.find((item) => item._id == internId);
+      const data = apiData.find((item) => item._id == personId);
 
       editid.value = data._id;
+      editcategory.value = data.category;
       editname.value = data.name;
-      editcourse.value = data.course;
       editdepartment.value = data.department;
-      editstipend.value = data.stipend;
-      edityear.value = data.year;
-      editcompany.value = data.company;
+      editdesignation.value = data.designation;
+      editmobileno.value = data.mobileno;
+      editemail.value = data.email;
+      editlink.value = data.link;
 
+      
       if (editdiv.style.display === "none") {
         editdiv.style.display = "block";
       }
@@ -514,10 +547,10 @@
 
     function deleteNotice(e) {
       console.log("this");
-      const internId = e.getAttribute("intern-id");
+      const personId = e.getAttribute("person-id");
 
       axios
-        .post(`{{URL}}/Internship_Insights/${internId}`)
+        .post(`{{URL}}/People/${personId}`)
         .then((response) => {
           console.log(response);
           alert("Data deleted successfully");
@@ -539,18 +572,19 @@
 
         tableBodyDom.innerHTML += `<tr>
         <td>${data[i]._id}</td>
+        <td>${data[i].category}</td>
         <td>${data[i].name}</td>
-        <td>${data[i].course}</td>
         <td>${data[i].department}</td>
-        <td>${data[i].stipend}</td>
-        <td>${data[i].year}</td>
-        <td>${data[i].company}</td>
+        <td>${data[i].designation}</td>
+        <td>${data[i].mobileno}</td>
+        <td>${data[i].email}</td>
+        <td>${data[i].link}</td>
         <td>${new Date(data[i].createdAt).toDateString()}</td>
         <td>${new Date(data[i].updatedAt).toDateString()}</td>
         <td>
-            <button type="button" onclick="EditData(this)" intern-id="${data[i]._id
+            <button type="button" onclick="EditData(this)" person-id="${data[i]._id
           }" class="btn btn-primary btn-xs ">Edit</button>
-            <button onclick="deleteNotice(this)" intern-id="${data[i]._id
+            <button onclick="deleteNotice(this)" person-id="${data[i]._id
           }" type="button" class="btn btn-danger btn-xs" ${showStatus}>Disable</button>
         </td>
     </tr>`;
@@ -559,7 +593,7 @@
 
     //fetch data from server
     axios
-      .get(`{{URL}}/Internship_Insights/get/all`)
+      .get(`{{URL}}/People/get/all`)
       .then((response) => {
         apiData = response.data;
         addDataToTable(response.data);
@@ -572,36 +606,35 @@
     // add form event
     addFormDom.addEventListener("submit", (e) => {
       e.preventDefault();
+      const category = document.getElementById("addcategory").value;
       const name = document.getElementById("addname").value;
-      const course = document.getElementById("addcourse").value;
       const department = document.getElementById("adddepartment").value;
-      const stipend = document.getElementById("addstipend").value;
-      const year = document.getElementById("addyear").value;
-      const company = document.getElementById("addcompany").value;
-      const image = document.getElementById("addImage").value;
+      const designation = document.getElementById("adddesignation").value;
+      const mobileno = document.getElementById("addmobileno").value;
+      const email = document.getElementById("addemail").value;
+      const link = document.getElementById("addlink").value;
+
       if (
-        course == "" ||
+        category == "" ||
         name == "" ||
         department == "" ||
-        stipend == "" ||
-        year == "" ||
-        company == "" ||
-        image == ""
+        designation == "" ||
+        mobileno == "" ||
+        email == ""
       ) {
         alert("Please enter all fields");
         return;
       }
-      
 
       axios
-        .post(`{{URL}}/Internship_Insights/`, {
+        .post(`{{URL}}/People/`, {
+          category: category,
           name: name,
-          course: course,
           department: department,
-          stipend: stipend,
-          year: year,
-          company: company,
-          image:image
+          designation: designation,
+          mobileno: mobileno,
+          email: email,
+          link: link || "https://www.iconpacks.net/icons/1/free-user-icon-244-thumb.png",
         })
         .then((response) => {
           console.log(response);
@@ -618,33 +651,35 @@
     editFormDom.addEventListener("submit", (e) => {
       e.preventDefault();
       const id = document.getElementById("editid").value;
+      const category = document.getElementById("editcategory").value;
       const name = document.getElementById("editname").value;
-      const course = document.getElementById("editcourse").value;
       const department = document.getElementById("editdepartment").value;
-      const stipend = document.getElementById("editstipend").value;
-      const year = document.getElementById("edityear").value;
-      const company = document.getElementById("editcompany").value;
+      const designation = document.getElementById("editdesignation").value;
+      const mobileno = document.getElementById("editmobileno").value;
+      const email = document.getElementById("editemail").value;
+      const link = document.getElementById("editlink").value;
 
       if (
-        course == "" ||
+        category == "" ||
         name == "" ||
         department == "" ||
-        stipend == "" ||
-        year == "" ||
-        company == ""
+        designation == "" ||
+        mobileno == "" ||
+        email == ""
       ) {
         alert("Please enter all fields");
         return;
       }
 
       axios
-        .patch(`{{URL}}/Internship_Insights/${id}`, {
+        .patch(`{{URL}}/People/${id}`, {
+          category: category,
           name: name,
-          course: course,
           department: department,
-          stipend: stipend,
-          year: year,
-          company: company,
+          designation: designation,
+          mobileno: mobileno,
+          email: email,
+          link: link || "https://www.iconpacks.net/icons/1/free-user-icon-244-thumb.png",
         })
         .then((response) => {
           console.log(response);
@@ -662,4 +697,5 @@
 <!-- default date and time picker-->
 
 <!-- default date and time picker ends here-->
+
 </html>
