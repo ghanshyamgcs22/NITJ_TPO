@@ -337,7 +337,8 @@ width: 200px;
 
             <div class="program-item">
                 <button class="transition delay-100 duration-300 hover:cursor-pointer hover:shadow-xl hover:bg-sky-400 hover:shadow-sky-500 hover:scale-110 w-full px-3 py-5 bg-white shadow shadow-gray-400 rounded-xl" onclick="toggleBranches('mba')">MBA</button>
-                <div id="mba-branches" class="branches-list">
+                  <div id="mba-branches" class="branches-list">
+                   <div id="mba-years" class="years-list">
                     <ul>
                            <li onclick="handleYears('Master of Business Administration (MBA)','2022')">2022</li>
                             <li onclick="handleYears('Master of Business Administration (MBA)','2023')">2023</li>
@@ -345,6 +346,7 @@ width: 200px;
                             <li onclick="handleYears('Master of Business Administration (MBA)','2025')">2025</li>
                             <li onclick="handleYears('Master of Business Administration (MBA)','2026')">2026</li>
                         </ul>
+                      </div>
                 </div>
             </div>
         </div>
@@ -356,206 +358,200 @@ width: 200px;
 
  
 
-<script>
-    async function fetchCourseData(degree, branch,year) {
-      const studentTableContainer = document.getElementById("student-table");
-  studentTableContainer.innerHTML = "";
-      try {
-        const response = await fetch('{{URL}}/internship_insights');
+ <script>
+  async function fetchCourseData(degree, branch, year) {
+    const studentTableContainer = document.getElementById("student-table");
+    studentTableContainer.innerHTML = "";
+    try {
+        const response = await fetch('{{URL}}/internship_insights/');
         const data = await response.json();
- const filteredData = data.filter(item => 
-    item.course === degree && 
-    (degree === 'Master of Business Administration (MBA)' || item.department === branch) && 
-    item.year === Number(year)
-);
+        const filteredData = data.filter(item =>
+            item.course === degree &&
+            (degree === 'Master of Business Administration (MBA)' || item.department === branch) &&
+            item.year === Number(year)
+        );
         const aggregatedData = filteredData.reduce((acc, item) => {
-          if (!acc[item.company]) {
-            acc[item.company] = {
-              company: item.company,
-              stipend: parseFloat(item.stipend),
-              count: 1
-            };
-          } else {
-            acc[item.company].stipend = Math.max(acc[item.company].stipend, parseFloat(item.stipend));
-            acc[item.company].count += 1;
-          }
-          return acc;
+            if (!acc[item.company]) {
+                acc[item.company] = {
+                    company: item.company,
+                    package: parseFloat(item.package),
+                    count: 1
+                };
+            } else {
+                acc[item.company].package = Math.max(acc[item.company].package, parseFloat(item.package));
+                acc[item.company].count += 1;
+            }
+            return acc;
         }, {});
 
         const tableData = Object.values(aggregatedData).map(item => [
-          item.company,
-          `${item.stipend}`,
-          item.count,
-          'View'
+            item.company,
+            `${item.package} LPA`,
+            item.count,
+            'View'
         ]);
-        // Hide all branch lists
-    const branchLists = document.querySelectorAll('.branches-list');
-    branchLists.forEach(list => {
-        list.style.display = 'none';
-    });
 
-    // Hide all year lists
-    const yearLists = document.querySelectorAll('.years-list');
-    yearLists.forEach(list => {
-        list.style.display = 'none';
-    });
+        // Hide all branch lists and year lists
+        document.querySelectorAll('.branches-list').forEach(list => list.style.display = 'none');
+        document.querySelectorAll('.years-list').forEach(list => list.style.display = 'none');
+        
         createTable(tableData, filteredData);
-      } catch (error) {
+    } catch (error) {
         console.error('Error fetching data:', error);
-      }
-    } 
+    }
+}
 
-    function createTable(data, originalData) {
-      const tableContainer = document.getElementById("course-table");
-      tableContainer.innerHTML = "";
+function createTable(data, originalData) {
+    const tableContainer = document.getElementById("course-table");
+    tableContainer.innerHTML = "";
 
-      if (!data || data.length === 0) {
+    if (!data || data.length === 0) {
         tableContainer.innerHTML = "<p>No data available</p>";
         return;
-      }
+    }
 
-      const table = document.createElement("table");
-      table.className = "min-w-full bg-white border border-gray-300";
+    const table = document.createElement("table");
+    table.className = "min-w-full bg-white border border-gray-300";
 
-      const thead = document.createElement("thead");
-      const headerRow = document.createElement("tr");
-      const headers = ["Company Name", "Stipend", "Number of Students Placed", "View"];
-      headers.forEach(headerText => {
+    const thead = document.createElement("thead");
+    const headerRow = document.createElement("tr");
+    const headers = ["Company Name", "CTC", "Number of Students Placed", "View"];
+    headers.forEach(headerText => {
         const th = document.createElement("th");
         th.className = "px-4 py-2 border-b font-semibold text-left";
         th.appendChild(document.createTextNode(headerText));
         headerRow.appendChild(th);
-      });
-      thead.appendChild(headerRow);
-      table.appendChild(thead);
+    });
+    thead.appendChild(headerRow);
+    table.appendChild(thead);
 
-      const tbody = document.createElement("tbody");
+    const tbody = document.createElement("tbody");
 
-      data.forEach(rowData => {
+    data.forEach(rowData => {
         const row = document.createElement("tr");
 
         rowData.forEach((cellData, index) => {
-          const cell = document.createElement("td");
-          cell.className = "px-4 py-2 border-b";
-          if (index === 3) {
-            const viewButton = document.createElement("button");
-            viewButton.textContent = "View";
-            viewButton.className = "view-button bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded";
-            viewButton.onclick = function () {
-              alert("Please scroll for details");
-              createStudentTable(rowData[0], originalData);
-            };
-            cell.appendChild(viewButton);
-          } else {
-            cell.appendChild(document.createTextNode(cellData));
-          }
-          row.appendChild(cell);
+            const cell = document.createElement("td");
+            cell.className = "px-4 py-2 border-b";
+            if (index === 3) {
+                const viewButton = document.createElement("button");
+                viewButton.textContent = "View";
+                viewButton.className = "view-button bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded";
+                viewButton.onclick = function () {
+                    alert("Please scroll for details");
+                    createStudentTable(rowData[0], originalData);
+                };
+                cell.appendChild(viewButton);
+            } else {
+                cell.appendChild(document.createTextNode(cellData));
+            }
+            row.appendChild(cell);
         });
 
         tbody.appendChild(row);
-      });
+    });
 
-      table.appendChild(tbody);
-      tableContainer.appendChild(table);
+    table.appendChild(tbody);
+    tableContainer.appendChild(table);
+}
+
+function createStudentTable(company, data) {
+    const studentTableContainer = document.getElementById("student-table");
+    studentTableContainer.innerHTML = "";
+
+    const companyData = data.filter(item => item.company === company).sort((a, b) => b.package - a.package);
+
+    if (companyData.length === 0) {
+        studentTableContainer.innerHTML = "<p>No student data available</p>";
+        return;
     }
 
-    function createStudentTable(company, data) {
-  const studentTableContainer = document.getElementById("student-table");
-  studentTableContainer.innerHTML = "";
+    const table = document.createElement("table");
+    table.className = "min-w-full bg-white border border-gray-300 mt-4";
 
-  const companyData = data.filter(item => item.company === company).sort((a, b) => b.stipend - a.stipend);
+    // Create table header
+    const thead = document.createElement("thead");
+    const headerRow = document.createElement("tr");
+    const headers = ["Company", "Branch", "Student Name", "CTC", "Year", "View"];
+    headers.forEach(headerText => {
+        const th = document.createElement("th");
+        th.className = "px-4 py-2 border-b font-semibold text-left bg-gray-200";
+        th.appendChild(document.createTextNode(headerText));
+        headerRow.appendChild(th);
+    });
+    thead.appendChild(headerRow);
+    table.appendChild(thead);
 
-  if (companyData.length === 0) {
-    studentTableContainer.innerHTML = "<p>No student data available</p>";
-    return;
-  }
+    // Create table body
+    const tbody = document.createElement("tbody");
 
-  const table = document.createElement("table");
-  table.className = "min-w-full bg-white border border-gray-300 mt-4";
+    companyData.forEach(student => {
+        const row = document.createElement("tr");
 
-  // Create table header
-  const thead = document.createElement("thead");
-  const headerRow = document.createElement("tr");
-  const headers = ["Company", "Branch", "Student Name", "Stipend", "Year", "View"];
-  headers.forEach(headerText => {
-    const th = document.createElement("th");
-    th.className = "px-4 py-2 border-b font-semibold text-left bg-gray-200";
-    th.appendChild(document.createTextNode(headerText));
-    headerRow.appendChild(th);
-  });
-  thead.appendChild(headerRow);
-  table.appendChild(thead);
+        const cellCompany = document.createElement("td");
+        cellCompany.className = "px-4 py-2 border-b";
+        cellCompany.appendChild(document.createTextNode(student.company));
+        row.appendChild(cellCompany);
 
-  // Create table body
-  const tbody = document.createElement("tbody");
+        const cellBranch = document.createElement("td");
+        cellBranch.className = "px-4 py-2 border-b";
+        cellBranch.appendChild(document.createTextNode(student.department));
+        row.appendChild(cellBranch);
 
-  companyData.forEach(student => {
-    const row = document.createElement("tr");
+        const cellName = document.createElement("td");
+        cellName.className = "px-4 py-2 border-b";
+        cellName.appendChild(document.createTextNode(student.name));
+        row.appendChild(cellName);
 
-    const cellCompany = document.createElement("td");
-    cellCompany.className = "px-4 py-2 border-b";
-    cellCompany.appendChild(document.createTextNode(student.company));
-    row.appendChild(cellCompany);
+        const cellPackage = document.createElement("td");
+        cellPackage.className = "px-4 py-2 border-b";
+        cellPackage.appendChild(document.createTextNode(`${student.package} LPA`));
+        row.appendChild(cellPackage);
 
-    const cellBranch = document.createElement("td");
-    cellBranch.className = "px-4 py-2 border-b";
-    cellBranch.appendChild(document.createTextNode(student.department));
-    row.appendChild(cellBranch);
+        const cellYear = document.createElement("td");
+        cellYear.className = "px-4 py-2 border-b";
+        cellYear.appendChild(document.createTextNode(student.year));
+        row.appendChild(cellYear);
 
-    const cellName = document.createElement("td");
-    cellName.className = "px-4 py-2 border-b";
-    cellName.appendChild(document.createTextNode(student.name));
-    row.appendChild(cellName);
+        const cellView = document.createElement("td");
+        cellView.className = "px-4 py-2 border-b";
+        const viewButton = document.createElement("button");
+        viewButton.textContent = "View";
+        viewButton.className = "view-button bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded";
+        viewButton.onclick = function () {
+            showImagePopup(student.image); // Assuming student.image contains the image URL
+        };
+        cellView.appendChild(viewButton);
+        row.appendChild(cellView);
 
-    const cellPackage = document.createElement("td");
-    cellPackage.className = "px-4 py-2 border-b";
-    cellPackage.appendChild(document.createTextNode(`${student.stipend} `));
-    row.appendChild(cellPackage);
+        tbody.appendChild(row);
+    });
 
-    const cellYear = document.createElement("td");
-    cellYear.className = "px-4 py-2 border-b";
-    cellYear.appendChild(document.createTextNode(student.year));
-    row.appendChild(cellYear);
-
-    const cellView = document.createElement("td");
-    cellView.className = "px-4 py-2 border-b";
-    const viewButton = document.createElement("button");
-    viewButton.textContent = "View";
-    viewButton.className = "view-button bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded";
-    viewButton.onclick = function () {
-      showImagePopup(student.image); // Assuming student.image contains the image URL
-    };
-    cellView.appendChild(viewButton);
-    row.appendChild(cellView);
-
-    tbody.appendChild(row);
-  });
-
-  table.appendChild(tbody);
-  studentTableContainer.appendChild(table);
+    table.appendChild(tbody);
+    studentTableContainer.appendChild(table);
 }
 
 function showImagePopup(imageUrl) {
-  const popup = document.createElement("div");
-  popup.className = "popup-overlay";
-  
-  const popupContent = document.createElement("div");
-  popupContent.className = "popup-content";
-  
-  const img = document.createElement("img");
-  img.src = imageUrl;
-  img.className = "popup-image";
-  
-  const closeButton = document.createElement("button");
-  closeButton.textContent = "Close";
-  closeButton.className = "popup-close";
-  closeButton.onclick = () => document.body.removeChild(popup);
-  
-  popupContent.appendChild(img);
-  popupContent.appendChild(closeButton);
-  popup.appendChild(popupContent);
-  
-  document.body.appendChild(popup);
+    const popup = document.createElement("div");
+    popup.className = "popup-overlay";
+    
+    const popupContent = document.createElement("div");
+    popupContent.className = "popup-content";
+    
+    const img = document.createElement("img");
+    img.src = imageUrl;
+    img.className = "popup-image";
+    
+    const closeButton = document.createElement("button");
+    closeButton.textContent = "Close";
+    closeButton.className = "popup-close";
+    closeButton.onclick = () => document.body.removeChild(popup);
+    
+    popupContent.appendChild(img);
+    popupContent.appendChild(closeButton);
+    popup.appendChild(popupContent);
+    
+    document.body.appendChild(popup);
 }
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -578,30 +574,24 @@ document.addEventListener('DOMContentLoaded', () => {
 
 function toggleBranches(program) {
     // Hide all branch lists
-    const branchLists = document.querySelectorAll('.branches-list');
-    branchLists.forEach(list => {
-        list.style.display = 'none';
-    });
-
+    document.querySelectorAll('.branches-list').forEach(list => list.style.display = 'none');
     // Hide all year lists
-    const yearLists = document.querySelectorAll('.years-list');
-    yearLists.forEach(list => {
-        list.style.display = 'none';
-    });
+    document.querySelectorAll('.years-list').forEach(list => list.style.display = 'none');
 
     // Show the selected branch list
     const branchList = document.getElementById(`${program}-branches`);
     branchList.style.display = 'block';
 
-    // Hide any previously shown years lists
+    // Show the years list if it exists
     const yearContainer = document.getElementById(`${program}-years`);
     if (yearContainer) {
-        yearContainer.style.display = 'none';
+        yearContainer.style.display = 'block';
     }
 }
-let branch="";
-function toggleYears(program,brch) {
-    branch=brch;
+
+let branch = "";
+function toggleYears(program, brch) {
+    branch = brch;
     const yearContainer = document.getElementById(`${program}-years`);
     if (yearContainer.style.display === 'block') {
         yearContainer.style.display = 'none';
@@ -609,8 +599,9 @@ function toggleYears(program,brch) {
         yearContainer.style.display = 'block';
     }
 }
-function handleYears(degree,year){
-   fetchCourseData(degree, branch,year);
+
+function handleYears(degree, year) {
+    fetchCourseData(degree, branch, year);
 }
 </script>
 
