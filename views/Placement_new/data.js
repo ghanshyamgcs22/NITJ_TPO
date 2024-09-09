@@ -1,7 +1,9 @@
 // Exporting using ES6 modules
 module.exports.data = {
     "BTech": [
+        
       "Bio Technology",
+         "Bio Technology",
       "Chemical Engineering",
       "Civil Engineering",
       "Computer Science and Engineering",
