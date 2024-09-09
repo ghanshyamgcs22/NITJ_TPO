@@ -55,8 +55,25 @@ exports.deletePlacement_Stat = async (req, res) => {
 
 
 exports.showallPlacement_Stats = async (req, res) => {
-  Placement_Stat.find()
-    .sort({ year: 1 }) // 1 for ascending order, -1 for descending order
-    .then((placement_stats) => res.status(200).send(placement_stats))
-    .catch((err) => res.status(404).send("Error: " + err));
+  try {
+    // Fetch all placement stats from the database
+    const placement_stats = await Placement_Stat.find()
+      .sort({ year: -1, course: 1 }); // Initial sort by year descending and course ascending
+
+    // Custom sorting to move "Recruiter" statsType to the end
+    const sortedStats = placement_stats.sort((a, b) => {
+      if (a.statsType === "Recruiter" && b.statsType !== "Recruiter") {
+        return 1; // Place "Recruiter" statsType at the end
+      } else if (a.statsType !== "Recruiter" && b.statsType === "Recruiter") {
+        return -1; // Keep non-"Recruiter" statsType before "Recruiter"
+      } else {
+        return 0; // If both are the same type, maintain their relative order
+      }
+    });
+
+    // Send the sorted response
+    res.status(200).send(sortedStats);
+  } catch (err) {
+    res.status(404).send("Error: " + err);
+  }
 };
