@@ -150,7 +150,7 @@
       let str2 = "";
       let str3 = "</div>";
 
-      str1 += `<div class="" style = ""> `;
+      str1 += `<div class="grid grid-cols-1 sm:grid-cols-1 lg:grid-cols-2 gap-2 lg:gap-5 mx-auto w-[90%] my-5" style = "padding-left:190px; margin-top: 150px;"> `;
       for(let i = 0; i < data.length ;i++) {
         str2 += `<div class="w-full max-w-sm bg-white rounded-lg border border-gray-200 shadow-md my-auto p-4">
             <div class="flex flex-col items-center pb-2 space-y-1">
@@ -188,13 +188,11 @@
       data.sort((a, b) => desiredOrder.indexOf(a.name) - desiredOrder.indexOf(b.name));
 
       // Construct the HTML
-      let str1 = `<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 lg:gap-5 mx-auto w-[90%] my-5" style="margin-top: 90px;">`;
+      let str1 = `<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 lg:gap-5 mx-auto w-[90%] my-5" style="margin-top: 150px;">`;
       let str2 = "";
       let str3 = "</div>";
 
       for (let i = 0; i < data.length; i++) {
-
-        if(data[i].show === false) continue;
         str2 += `<div class="w-full max-w-sm bg-white rounded-lg border border-gray-200 shadow-md my-auto p-4">
           <div class="flex flex-col items-center pb-2 space-y-1">
             <img class="mb-3 w-24 h-24 rounded-full shadow-lg" src="${data[i].link}" alt="image">
