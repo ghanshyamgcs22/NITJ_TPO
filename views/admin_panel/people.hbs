@@ -548,7 +548,7 @@
     function deleteNotice(e) {
       console.log("this");
       const personId = e.getAttribute("person-id");
-
+      
       axios
         .post(`{{URL}}/People/${personId}`)
         .then((response) => {
