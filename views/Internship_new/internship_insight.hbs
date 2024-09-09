@@ -338,23 +338,13 @@ width: 200px;
             <div class="program-item">
                 <button class="transition delay-100 duration-300 hover:cursor-pointer hover:shadow-xl hover:bg-sky-400 hover:shadow-sky-500 hover:scale-110 w-full px-3 py-5 bg-white shadow shadow-gray-400 rounded-xl" onclick="toggleBranches('mba')">MBA</button>
                 <div id="mba-branches" class="branches-list">
-                   <ul>
-                      <li onclick="toggleYears('mba','Marketing')">Marketing</li>
-                      <li onclick="toggleYears('mba','Finance')">Finance</li>
-                      <li onclick="toggleYears('mba','Human Resources')">Human Resources</li>
-                      <li onclick="toggleYears('mba','Operations')">Operations</li>
-                      <li onclick="toggleYears('mba','IT Management')">IT Management</li>
-                  </ul>
-
-                    <div id="mba-years" class="years-list">
-                        <ul>
+                    <ul>
                            <li onclick="handleYears('Master of Business Administration (MBA)','2022')">2022</li>
                             <li onclick="handleYears('Master of Business Administration (MBA)','2023')">2023</li>
                             <li onclick="handleYears('Master of Business Administration (MBA)','2024')">2024</li>
                             <li onclick="handleYears('Master of Business Administration (MBA)','2025')">2025</li>
-                            <li onclick="handleYears('Master of Business Administration (MBA)','2026')">2025</li>
+                            <li onclick="handleYears('Master of Business Administration (MBA)','2026')">2026</li>
                         </ul>
-                    </div>
                 </div>
             </div>
         </div>
@@ -373,8 +363,11 @@ width: 200px;
       try {
         const response = await fetch('{{URL}}/internship_insights');
         const data = await response.json();
-        const filteredData = data.filter(item => item.course === degree && item.department === branch && item.year===Number(year));
-
+ const filteredData = data.filter(item => 
+    item.course === degree && 
+    (degree === 'Master of Business Administration (MBA)' || item.department === branch) && 
+    item.year === Number(year)
+);
         const aggregatedData = filteredData.reduce((acc, item) => {
           if (!acc[item.company]) {
             acc[item.company] = {
