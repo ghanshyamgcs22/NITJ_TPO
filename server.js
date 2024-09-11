@@ -13,6 +13,7 @@ const data=require("./views/Placement_new/data");
 const announcementsRouter = require("./routes/announcements");
 const noticesRouter = require("./routes/notices");
 const faqsRouter = require("./routes/faqs");
+const queryRouter = require("./routes/queries");
 const peopleRouter = require("./routes/people");
 const processesRouter = require("./routes/processes");
 const policiesRouter = require("./routes/policies");
@@ -36,6 +37,7 @@ app.use(express.json());
 
 // mongo db connections
 const uri = process.env.ATLAS_URI;
+console.log(process.env.ATLAS_URI);
 //const uri = "mongodb+srv://member:i1d7D2z3CSSurBmQ@cluster0.xjqozuj.mongodb.net/?retryWrites=true&w=majority";
 
 mongoose.connect(uri, {
@@ -80,6 +82,7 @@ app.use("/People", peopleRouter);
 app.use("/Processes", processesRouter);
 app.use("/Policies", policiesRouter);
 app.use("/NitjMessage", nitj_messages);
+app.use("/query", queryRouter);
 app.use("/Users", usersRouter);
 app.use("/Internship_Insights", internship_insightsRouter);
 app.use("/Placement_Insights", placement_insightsRouter);
@@ -129,6 +132,7 @@ app.get("/internship_insight", (req, res) => {
   res.render("Internship_new/internship_insight.hbs", { URL: process.env.URL,data});
 });
 
+
 app.get("/auth", (req, res) => {
   res.render("auth/index.hbs", { URL: process.env.URL });
 });
@@ -144,6 +148,9 @@ app.get("/admin/announcements", (req, res) => {
 
 app.get("/admin/faqs", (req, res) => {
   res.render("admin_panel/faqs.hbs", { URL: process.env.URL });
+});
+app.get("/admin/queries", (req, res) => {
+  res.render("admin_panel/queries.hbs", { URL: process.env.URL,data});
 });
 
 app.get("/admin/notices", (req, res) => {
