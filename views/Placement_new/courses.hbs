@@ -578,9 +578,11 @@ function toggleBranches(program) {
     branchList.style.display = 'block';
 
     // Show the years list if it exists
+    if(program=='mba'){
     const yearContainer = document.getElementById(`${program}-years`);
     if (yearContainer) {
         yearContainer.style.display = 'block';
+    }
     }
 }
 
