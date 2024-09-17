@@ -816,7 +816,7 @@ footer {
 
         const tableData = Object.values(aggregatedData).map(item => [
             item.company,
-            ${item.package} LPA,
+            `${item.package} LPA`,
             item.count,
             'View'
         ]);
@@ -973,13 +973,13 @@ function showImagePopup(student) {
     info.className = "popup-info";
     
     const name = document.createElement("p");
-    name.textContent = Name: ${student.name};
+    name.textContent = `Name: ${student.name}`;
     
     const company = document.createElement("p");
-    company.textContent = Company: ${student.company};
+    company.textContent = `Company: ${student.company}`;
     
     const ctc = document.createElement("p");
-    ctc.textContent = CTC: ${student.package} LPA;
+    ctc.textContent = `CTC: ${student.package} LPA`;
     
     info.appendChild(name);
     info.appendChild(company);
@@ -1119,7 +1119,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 {{!-- function toggleBranches(program) {
     // Get the branches container for the selected program
-    const branches = document.getElementById(${program}-branches);
+    const branches = document.getElementById(`${program}-branches`);
     if (branches.style.display === 'none' || branches.style.display === '') {
         branches.style.display = 'block';
     } else {
@@ -1133,7 +1133,7 @@ let currentOpenBranch = null;
 function toggleYears(program, branch) {
 
   
-    const yearsContainer = document.getElementById(${program}-years);
+    const yearsContainer = document.getElementById(`${program}-years`);
     console.log(yearsContainer);
     const branchItem = document.getElementById(branch);
 
@@ -1147,7 +1147,7 @@ function toggleYears(program, branch) {
         // Close previously open branch
         if (currentOpenBranch) {
             const previousBranchItem = document.getElementById(currentOpenBranch);
-            const previousYearsContainer = document.getElementById(${program}-years);
+            const previousYearsContainer = document.getElementById(`${program}-years`);
 
             
 
@@ -1252,7 +1252,7 @@ function createStudentTable_BigegrWindow(company, data) {
 
         const cellPackage = document.createElement("td");
         cellPackage.className = "px-4 py-2 border-b";
-        cellPackage.appendChild(document.createTextNode(${student.package} LPA));
+        cellPackage.appendChild(document.createTextNode(`${student.package} LPA`));
         row.appendChild(cellPackage);
 
         const cellYear = document.createElement("td");
@@ -1288,7 +1288,7 @@ function createStudentTable_BigegrWindow(company, data) {
   </div>
 <script>
   function toggleBranches(program) {
-    const branches = document.getElementById(${program}-branches);
+    const branches = document.getElementById(`${program}-branches`);
     
     // Toggle the display of the branches list
     if (branches.style.display === "none" || !branches.style.display) {
